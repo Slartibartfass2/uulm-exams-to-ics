@@ -24,8 +24,11 @@ function rowToExam(row) {
 
 let exams = [];
 for (let i = 2; i < rows.length; i++) {
-    let exam = rowToExam(rows[i]);
-    exams.push(exam);
+    try {
+        exams.push(rowToExam(rows[i]));
+    } catch (error) {
+        console.error(`error in row ${i}: ${error}`);
+    }
 }
 
 const dateStringToIsoDateString = date => date.split(".").reverse().join("-");
