@@ -103,4 +103,19 @@ for (let exam of exams) {
 }
 ics += "END:VCALENDAR\r\n";
 
-document.getElementsByTagName("body")[0].innerHTML = `<textarea style='width: 100%; height: 100%;'>${ics}</textarea>`;
+// https://stackoverflow.com/a/33542499/9085480
+function save(filename, data) {
+    const blob = new Blob([data], {type: 'text/csv'});
+    if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    } else {
+        const elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;        
+        document.body.appendChild(elem);
+        elem.click();        
+        document.body.removeChild(elem);
+    }
+}
+
+document.getElementById("exampleModalLabel").parentElement.parentElement.children[1].children[0].outerHTML = `<button class="btn btn-outline-success w-100 my-1" type="button" name="exportIcsBtn" onclick="save('exams.ics', ics)">ICS</button>`;
