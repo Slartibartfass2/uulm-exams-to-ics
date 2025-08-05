@@ -118,4 +118,17 @@ function save(filename, data) {
     }
 }
 
-document.getElementById("exampleModalLabel").parentElement.parentElement.children[1].children[0].outerHTML = `<button class="btn btn-outline-success w-100 my-1" type="button" name="exportIcsBtn" onclick="save('exams.ics', ics)">ICS</button>`;
+// 1. Create the button element
+const button = document.createElement('button');
+
+// 2. Set its attributes
+button.className = 'btn btn-outline-primary w-100 my-1';
+button.type = 'button';
+button.name = 'exportIcsBtn';
+button.setAttribute('onclick', "save('exams.ics', ics)");
+
+// 3. Set its inner text (or use innerHTML if needed)
+button.textContent = 'ICS';
+
+const pdfButton = document.getElementsByName("exportTableBtn")[0];
+document.getElementById("exampleModalLabel").parentElement.parentElement.children[1].insertBefore(button, pdfButton);
